@@ -1,13 +1,14 @@
 import type { StackNavigationProp, StackScreenProps } from '@react-navigation/stack'
 
 import type { CategoryId, MealId } from '~typings/assets/data'
+import type { FiltersState } from '~typings/screens'
 import { Routes } from '~constants'
 
 export type CategoriesParams = { categoryId: CategoryId }
 
 export type MealDetailParams = { mealId: MealId }
 
-export type FiltersParams = { save: () => void }
+export type FiltersParams = { filters: FiltersState }
 
 export type ParamListPerRoute = {
   [Routes.CATEGORIES]: undefined

@@ -1,21 +1,26 @@
 import * as React from 'react'
+import { BottomNavigation } from 'react-native-paper'
 import { createStackNavigator } from '@react-navigation/stack'
 import {
   createMaterialBottomTabNavigator,
   MaterialBottomTabNavigationOptions,
 } from '@react-navigation/material-bottom-tabs'
 import { BottomTabNavigationOptions, createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { createDrawerNavigator } from '@react-navigation/drawer'
 import { Ionicons } from '@expo/vector-icons'
 
-import { Categories, CategoryMeals, Favorites, MealDetail } from '~screens'
+import { Categories, CategoryMeals, Favorites, Filters, MealDetail } from '~screens'
 import { Colors, isAndroid, Routes, StackNavigationOptions } from '~constants'
-import { BottomNavigation } from 'react-native-paper'
 
-export const RootStack = createStackNavigator()
+export const RootStack = createDrawerNavigator()
+
+export const FiltersStack = createStackNavigator()
 
 export const MealsStack = createStackNavigator()
 
 export const FavoritesStack = createStackNavigator()
+
+export const TabsStack = isAndroid ? createMaterialBottomTabNavigator() : createBottomTabNavigator()
 
 export const MealsNavigator = () => (
   <MealsStack.Navigator>
@@ -32,7 +37,11 @@ export const FavoritesNavigator = () => (
   </FavoritesStack.Navigator>
 )
 
-export const TabsStack = isAndroid ? createMaterialBottomTabNavigator() : createBottomTabNavigator()
+export const FiltersNavigator = () => (
+  <FiltersStack.Navigator>
+    <FiltersStack.Screen name={Routes.FILTERS} component={Filters} options={StackNavigationOptions} />
+  </FiltersStack.Navigator>
+)
 
 const mealsBottomTabNavigationOptions: MaterialBottomTabNavigationOptions = {
   tabBarIcon: tabInfo => <Ionicons name="ios-restaurant" size={24} color={tabInfo.color} />,

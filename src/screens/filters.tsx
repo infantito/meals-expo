@@ -3,7 +3,7 @@ import { DrawerActions } from '@react-navigation/routers'
 import { View, Text, StyleSheet, Alert } from 'react-native'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons'
 
-import type { FiltersProps as Props } from '~typings/screens'
+import type { FiltersProps as Props, FiltersState } from '~typings/screens'
 import { FilterSwitch, HeaderButton } from '~components'
 
 const styles = StyleSheet.create({
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
 const Filters = (props: Props) => {
   const { navigation } = props
 
-  const [state, setState] = React.useState({
+  const [state, setState] = React.useState<FiltersState>({
     isGlutenFree: false,
     isLactoseFree: false,
     isVegan: false,
@@ -35,12 +35,8 @@ const Filters = (props: Props) => {
 
   const { isGlutenFree, isLactoseFree, isVegan, isVegetarian } = state
 
-  const handleFilters = React.useCallback(() => {
-    console.log(state)
-  }, [state])
-
   React.useEffect(() => {
-    navigation.setParams({ save: handleFilters })
+    navigation.setParams({ filters: state })
 
     navigation.setOptions({
       headerTitle: 'Filter Meals',
@@ -62,7 +58,7 @@ const Filters = (props: Props) => {
             iconName="ios-save"
             onPress={() => {
               Alert.alert('Save Favorite', 'Do you want to save?', [
-                { text: 'Cancel', style: 'cancel' },
+                { text: 'Cancel', style: 'destructive' },
                 { text: 'Save', style: 'default' },
               ])
             }}
