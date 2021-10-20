@@ -34,14 +34,13 @@ const CategoryGridTile = (props: Props) => {
   const { color, handleSelect, title } = props
 
   return (
-    <View style={styles.gridItem}>
-      <Pressable style={{ flex: 1 }} onPress={handleSelect}>
-        <View style={{ ...styles.container, ...{ backgroundColor: color } }}></View>
+    <Pressable style={styles.gridItem} onPress={handleSelect}>
+      <View style={{ ...styles.container, ...{ backgroundColor: color } }}>
         <Text style={styles.title} numberOfLines={2}>
           {title}
         </Text>
-      </Pressable>
-    </View>
+      </View>
+    </Pressable>
   )
 }
 

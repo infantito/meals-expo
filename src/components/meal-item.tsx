@@ -47,26 +47,24 @@ const MealItem = (props: Props) => {
   const { meal, handleSelect } = props
 
   return (
-    <View style={styles.mealItem}>
-      <Pressable onPress={handleSelect}>
-        <View>
-          <View style={{ ...styles.mealRow, ...styles.mealHeader }}>
-            <ImageBackground source={{ uri: meal.imageUrl }} style={styles.bgImage}>
-              <View style={styles.titleContainer}>
-                <Text style={styles.title} numberOfLines={1}>
-                  {meal.title}
-                </Text>
-              </View>
-            </ImageBackground>
-          </View>
-          <View style={{ ...styles.mealRow, ...styles.mealDetail }}>
-            <DefaultText>{meal.duration}m</DefaultText>
-            <DefaultText>{meal.complexity.toUpperCase()}</DefaultText>
-            <DefaultText>{meal.affordability.toUpperCase()}</DefaultText>
-          </View>
+    <Pressable style={styles.mealItem} onPress={handleSelect}>
+      <View>
+        <View style={{ ...styles.mealRow, ...styles.mealHeader }}>
+          <ImageBackground source={{ uri: meal.imageUrl }} style={styles.bgImage}>
+            <View style={styles.titleContainer}>
+              <Text style={styles.title} numberOfLines={1}>
+                {meal.title}
+              </Text>
+            </View>
+          </ImageBackground>
         </View>
-      </Pressable>
-    </View>
+        <View style={{ ...styles.mealRow, ...styles.mealDetail }}>
+          <DefaultText>{meal.duration}m</DefaultText>
+          <DefaultText>{meal.complexity.toUpperCase()}</DefaultText>
+          <DefaultText>{meal.affordability.toUpperCase()}</DefaultText>
+        </View>
+      </View>
+    </Pressable>
   )
 }
 
