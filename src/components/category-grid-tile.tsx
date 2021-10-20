@@ -1,6 +1,8 @@
 import * as React from 'react'
 import { View, Text, StyleSheet, Platform, Pressable } from 'react-native'
 
+import { isAndroid } from '~constants'
+
 import type { CategoryGridTileProps as Props } from '~typings/components'
 
 const styles = StyleSheet.create({
@@ -10,7 +12,7 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 150,
     margin: 16,
-    overflow: Platform.OS === 'android' && Platform.Version >= 21 ? 'hidden' : 'visible',
+    overflow: isAndroid && Platform.Version >= 21 ? 'hidden' : 'visible',
   },
   container: {
     alignItems: 'flex-end',

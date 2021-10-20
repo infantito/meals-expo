@@ -4,15 +4,15 @@ import { HeaderButton as NavigationHeaderButton } from 'react-navigation-header-
 import { Ionicons } from '@expo/vector-icons'
 
 import type { HeaderButtonProps as Props } from '~typings/components'
-import { Colors } from '~constants'
+import { Colors, isAndroid } from '~constants'
 
 const HeaderButton = (props: Props) => {
   return (
     <NavigationHeaderButton
       {...props}
       IconComponent={Ionicons}
-      iconSize={24}
-      color={Platform.OS === 'android' ? '#fff' : Colors.primary}
+      iconSize={28}
+      color={isAndroid ? '#fff' : Colors.primary}
     />
   )
 }

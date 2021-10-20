@@ -1,6 +1,7 @@
 import * as React from 'react'
-import { View, Text, StyleSheet, Switch, Platform } from 'react-native'
-import { Colors } from '~constants'
+import { View, Text, StyleSheet, Switch } from 'react-native'
+
+import { Colors, isAndroid } from '~constants'
 
 import type { FilterSwitchProps as Props } from '~typings/components'
 
@@ -22,7 +23,7 @@ const FilterSwitch = (props: Props) => {
       <Text>{label}</Text>
       <Switch
         trackColor={{ true: Colors.primary }}
-        thumbColor={Platform.OS === 'android' ? Colors.primary : ''}
+        thumbColor={isAndroid ? Colors.primary : ''}
         value={status}
         onValueChange={handleChange}
       />

@@ -1,24 +1,33 @@
 import * as React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { Alert } from 'react-native'
 import { registerRootComponent } from 'expo'
-import { StatusBar } from 'expo-status-bar'
+import AppLoading from 'expo-app-loading'
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-})
+import Router from '~router'
+import { fetchFonts } from '~utils'
 
 const App = () => {
-  return (
-    <View style={styles.container}>
-      <Text>Open up ./src/app.tsx to start working on meal app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  )
+  const [state, setState] = React.useState({
+    isFontLoaded: false,
+  })
+
+  const updater = (newState: Partial<typeof state>) => {
+    setState(prevState => ({ ...prevState, ...newState }))
+  }
+
+  const { isFontLoaded } = state
+
+  if (!isFontLoaded) {
+    return (
+      <AppLoading
+        startAsync={fetchFonts}
+        onFinish={() => updater({ isFontLoaded: true })}
+        onError={error => Alert.alert('Error', JSON.stringify(error))}
+      />
+    )
+  }
+
+  return <Router />
 }
 
 export default registerRootComponent(App)

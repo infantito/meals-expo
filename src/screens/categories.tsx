@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { ListRenderItemInfo, StyleSheet } from 'react-native'
+import { ListRenderItemInfo } from 'react-native'
 import { DrawerActions } from '@react-navigation/routers'
 import { FlatList } from 'react-native-gesture-handler'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons'
@@ -9,14 +9,6 @@ import type { Category, CategoryId } from '~typings/assets/data'
 import { CATEGORIES } from '~assets/data'
 import { CategoryGridTile, HeaderButton } from '~components'
 import { Routes } from '~constants'
-
-const styles = StyleSheet.create({
-  screen: {
-    alignItems: 'center',
-    flex: 1,
-    justifyContent: 'center',
-  },
-})
 
 const Categories = (props: Props) => {
   const { navigation } = props
