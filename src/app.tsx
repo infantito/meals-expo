@@ -1,9 +1,11 @@
 import * as React from 'react'
 import { Alert } from 'react-native'
+import { Provider } from 'react-redux'
 import { registerRootComponent } from 'expo'
 import AppLoading from 'expo-app-loading'
 
 import Router from '~router'
+import store from '~store'
 import { fetchFonts } from '~utils'
 
 const App = () => {
@@ -27,7 +29,11 @@ const App = () => {
     )
   }
 
-  return <Router />
+  return (
+    <Provider store={store}>
+      <Router />
+    </Provider>
+  )
 }
 
 export default registerRootComponent(App)
