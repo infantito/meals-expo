@@ -1,13 +1,25 @@
 import * as React from 'react'
+import { useSelector } from 'react-redux'
+import { StyleSheet, View } from 'react-native'
 import { DrawerActions } from '@react-navigation/routers'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons'
 
+import type { RootState } from '~typings/store'
 import type { FavoritesProps as Props } from '~typings/screens'
-import { MEALS } from '~assets/data'
-import { HeaderButton, MealList } from '~components'
+import { DefaultText, HeaderButton, MealList } from '~components'
+
+const styles = StyleSheet.create({
+  content: {
+    alignItems: 'center',
+    flex: 1,
+    justifyContent: 'center',
+  },
+})
 
 const FavoritesScreen = (props: Props) => {
   const { navigation } = props
+
+  const favoriteMeals = useSelector((state: RootState) => state.meals.favoriteMeals || [])
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -26,10 +38,13 @@ const FavoritesScreen = (props: Props) => {
     })
   }, [navigation])
 
-  /**
-   * @todo the next line should be dynamic
-   */
-  const favoriteMeals = MEALS.filter(meal => meal.id === 'm1' || meal.id === 'm2')
+  if (favoriteMeals.length === 0) {
+    return (
+      <View style={styles.content}>
+        <DefaultText>No favorite meals found. Start adding some!</DefaultText>
+      </View>
+    )
+  }
 
   return <MealList listData={favoriteMeals} />
 }

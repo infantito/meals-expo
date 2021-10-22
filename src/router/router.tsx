@@ -15,7 +15,7 @@ const Router = () => {
         }}
       >
         <RootStack.Screen name="DrawerMealsFavorites" component={TabsNavigator} options={{ drawerLabel: 'Meals' }} />
-        <RootStack.Screen name="DrawerFilters" component={FiltersNavigator} options={{ drawerLabel: 'Favorites' }} />
+        <RootStack.Screen name="DrawerFilters" component={FiltersNavigator} options={{ drawerLabel: 'Filters' }} />
       </RootStack.Navigator>
     </NavigationContainer>
   )

@@ -1,9 +1,11 @@
 import * as React from 'react'
+import { useDispatch } from 'react-redux'
 import { DrawerActions } from '@react-navigation/routers'
-import { View, Text, StyleSheet, Alert } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons'
 
 import type { FiltersProps as Props, FiltersState } from '~typings/screens'
+import { setFilters } from '~store'
 import { FilterSwitch, HeaderButton } from '~components'
 
 const styles = StyleSheet.create({
@@ -33,7 +35,13 @@ const Filters = (props: Props) => {
     setState(prevState => ({ ...prevState, ...newState }))
   }
 
+  const dispatch = useDispatch()
+
   const { isGlutenFree, isLactoseFree, isVegan, isVegetarian } = state
+
+  const handleFilters = () => {
+    dispatch(setFilters(state))
+  }
 
   React.useEffect(() => {
     navigation.setParams({ filters: state })
@@ -53,20 +61,11 @@ const Filters = (props: Props) => {
       ),
       headerRight: () => (
         <HeaderButtons HeaderButtonComponent={HeaderButton}>
-          <Item
-            title="Save"
-            iconName="ios-save"
-            onPress={() => {
-              Alert.alert('Save Favorite', 'Do you want to save?', [
-                { text: 'Cancel', style: 'destructive' },
-                { text: 'Save', style: 'default' },
-              ])
-            }}
-          />
+          <Item title="Save" iconName="ios-save" onPress={handleFilters} />
         </HeaderButtons>
       ),
     })
-  }, [navigation])
+  }, [navigation, state])
 
   return (
     <View style={styles.screen}>

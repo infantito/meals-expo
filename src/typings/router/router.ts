@@ -6,7 +6,7 @@ import { Routes } from '~constants'
 
 export type CategoriesParams = { categoryId: CategoryId }
 
-export type MealDetailParams = { mealId: MealId }
+export type MealDetailParams = { mealId: MealId; mealTitle: string; isFavoriteMeal: boolean }
 
 export type FiltersParams = { filters: FiltersState }
 

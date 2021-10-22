@@ -1,9 +1,11 @@
 import * as React from 'react'
+import { useSelector } from 'react-redux'
 import { useNavigation } from '@react-navigation/core'
 import { View, StyleSheet, FlatList, ListRenderItemInfo } from 'react-native'
 
-import type { Meal, MealId } from '~typings/assets/data'
-import type { RootStackParamList } from '~typings/router'
+import type { Meal } from '~typings/assets/data'
+import type { MealDetailParams, RootStackParamList } from '~typings/router'
+import type { RootState } from '~typings/store'
 import type { MealListProps as Props } from '~typings/components'
 import { Routes } from '~constants'
 import MealItem from './meal-item'
@@ -22,12 +24,20 @@ const MealList = (props: Props) => {
 
   const navigation = useNavigation<RootStackParamList<Routes.MEAL_DETAIL>>()
 
-  const navigate = (mealId: MealId) => {
-    navigation.navigate(Routes.MEAL_DETAIL, { mealId })
+  const favoriteMeals = useSelector((state: RootState) => state.meals.favoriteMeals)
+
+  const navigate = (mealDetailParams: MealDetailParams) => {
+    navigation.navigate(Routes.MEAL_DETAIL, mealDetailParams)
   }
 
   const renderMealItem = (itemData: ListRenderItemInfo<Meal>) => {
-    return <MealItem meal={itemData.item} handleSelect={() => navigate(itemData.item.id)} />
+    const { item } = itemData
+
+    const isFavoriteMeal = favoriteMeals.some(meal => meal.id === item.id)
+
+    const params = { mealId: item.id, mealTitle: item.title, isFavoriteMeal }
+
+    return <MealItem meal={item} handleSelect={() => navigate(params)} />
   }
 
   return (
